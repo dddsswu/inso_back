@@ -15,7 +15,7 @@ router.post('/',function(req,res,next){
     let response=res;
     let{msg,username,date}=req.body
     //date 还需要处理
-    query('insert into msgbox values(?,?,?,?)',[null,msg,username,date],function(rows){
+    query('insert into msgbox values(?,?,?,?)',[null,username,msg,date],function(rows){
         let code,msg;
         if(rows.affectedRows>0){
             //成功了
