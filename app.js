@@ -5,11 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var loginRouter= require('./routes/login')
-var msgRouter=require('./routes/msgbox')
+var loginRouter= require('./routes/login');
+var msgRouter=require('./routes/msgbox');
+var blogRouter=require('./routes/postBlog.js')
 
 var app = express();
-
+var bodyParser = require('body-parser');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,10 +20,12 @@ var cors=require('cors')
 app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+//扩大接受请求的大小
+app.use(express.urlencoded({ extended: false,limit:'4096kb',parameterLimit:'4096' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.use(express.urlencoded({extended:true,limit:'4096kb',parameterLimit:'4096'}))
 
 app.use('/', indexRouter);
 
@@ -33,6 +36,7 @@ app.use('/', indexRouter);
 // })
 app.use('/login',loginRouter)
 app.use('/msgbox',msgRouter)
+app.use('/postblog',blogRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

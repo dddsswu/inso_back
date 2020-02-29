@@ -2,6 +2,17 @@ var express = require('express');
 var router = express.Router();
 //数据库引入
 let query = require('../db/mysql')
+const fs = require('fs');
+
+// // var base64=fs.readFileSync('pic.jpg')
+// // let base64str = Buffer.from(base64, 'binary').toString('base64')
+// // console.log(base64str);
+// // console.log(typeof base64str)
+// var base64=""
+// //var base64Data = base64str.replace(/\s/g,"+");
+// let bitmap1 = Buffer.from(base64Data, 'base64');//解码图片
+// fs.writeFileSync('end.jpg',bitmap1);
+// console.log(bitmap1)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
