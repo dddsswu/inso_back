@@ -21,7 +21,7 @@ app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 //扩大接受请求的大小
-app.use(express.urlencoded({ extended: false,limit:'4096kb',parameterLimit:'4096' }));
+app.use(express.urlencoded({ extended: false,limit:'20480kb',parameterLimit:'5242880' }));
 app.use(cookieParser());
 //允许静态访问
 app.use('/public',express.static(path.join(__dirname, 'public')));
