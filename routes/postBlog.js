@@ -11,7 +11,7 @@ router.post('/',function (req,res,next) {
     //var dataBuffer = new Buffer(base64Data, 'base64'); // 解码图片
      var dataBuffer = Buffer.from(base64Data, 'base64'); // 这是另一种写法
      
-    fs.writeFile('./public/images/image.jpg', dataBuffer, function(err) {
+    fs.writeFile('./public/static/images/image.jpg', dataBuffer, function(err) {
         if(err){
             res.send("保存失败！");
           

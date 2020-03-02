@@ -23,7 +23,9 @@ app.use(express.json());
 //扩大接受请求的大小
 app.use(express.urlencoded({ extended: false,limit:'4096kb',parameterLimit:'4096' }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//允许静态访问
+app.use('/public',express.static(path.join(__dirname, 'public')));
+
 
 // app.use(express.urlencoded({extended:true,limit:'4096kb',parameterLimit:'4096'}))
 
