@@ -11,7 +11,7 @@ router.post('/',function (req,res,next) {
   let response=res;
   let {username,msg,title,date,imgData}=req.body;
   if(username===""||msg===""||title==="")return response.send({msg:"请填写完全数据"})
-    let imgname=`./public/static/images/blog/${title}.jpg`
+    let imgname=`./public/static/images/blog/${title+date}.jpg`
     //接收前台POST过来的base64
     //过滤data:URL
     var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
@@ -38,6 +38,23 @@ function render (result,writed,response){
     response.send({code:1,msg:"保存成功！"})
   }
 }
+
+
+router.get('/last',function(req,res,next){
+  let response=res;
+  query('select * from blog order by id desc limit 0,1',function(rows){
+    let result=rows[0];
+    if(result){
+      let imgname=(result.imgname).replace(/^\.\//,"/")
+      console.log(imgname)
+      response.send({code:1,msg:result.msg,title:result.title,date:result.date,imgname:imgname})
+    }else{
+      response.send({code:0,msg:"服务器错误！"})
+    }
+  })
+})
+
+
 
 
 module.exports = router;
