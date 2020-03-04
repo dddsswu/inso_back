@@ -11,7 +11,7 @@ router.post('/',function (req,res,next) {
   let response=res;
   let {username,msg,title,date,imgData}=req.body;
   if(username===""||msg===""||title==="")return response.send({msg:"请填写完全数据"})
-    let imgname=`./public/static/images/blog/${title+date}.jpg`
+    let imgname=`./public/static/images/blog/${username}/${title+date}.jpg`
     //接收前台POST过来的base64
     //过滤data:URL
     var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
@@ -40,9 +40,10 @@ function render (result,writed,response){
 }
 
 
-router.get('/last',function(req,res,next){
+router.post('/last',function(req,res,next){
+  let {username}=req.body;
   let response=res;
-  query('select * from blog order by id desc limit 0,1',function(rows){
+  query('select * from blog where username=? order by id desc limit 0,1',[username],function(rows){
     let result=rows[0];
     if(result){
       let imgname=(result.imgname).replace(/^\.\//,"/")
