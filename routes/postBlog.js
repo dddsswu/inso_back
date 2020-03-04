@@ -41,7 +41,7 @@ function render (result,writed,response){
 
 
 router.post('/last',function(req,res,next){
-  let {username}=req.body;
+  let username=req.body.username||'youke';
   let response=res;
   query('select * from blog where username=? order by id desc limit 0,1',[username],function(rows){
     let result=rows[0];
