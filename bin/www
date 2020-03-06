@@ -7,8 +7,11 @@
 var app = require('../app');
 var debug = require('debug')('inso-back:server');
 var http = require('http');
-var http = require('https');
+var wsinit=require('../ws/ws.js')
+// var http = require('https');
 
+ const WebSocket = require('ws');
+ let WebSocketServer=WebSocket.Server;
 /**
  * Get port from environment and store in Express.
  */
@@ -25,10 +28,11 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+wsinit(server,WebSocketServer)
 
 /**
  * Normalize a port into a number, string, or false.
